@@ -1,5 +1,4 @@
-const { OP } = require('../../scripts/rpcCall');
-const { badActor} = require('../../scripts/badActor')
+const { OP } = require('../scripts/rpcCall');
 
 const ethers = require('ethers')
 require('dotenv').config();

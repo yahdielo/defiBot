@@ -20,7 +20,8 @@
     "axios": "^1.6.8",
     "ethers": "^6.12.1",
     "node-telegram-bot-api": "^0.65.1",
-    "telegraf": "^4.16.3"
+    "telegraf": "^4.16.3",
+    "telegram-keyboard": "^2.3.5"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",

@@ -1,6 +1,6 @@
 const TelegramBot = require('node-telegram-bot-api');
-const {Telegraf, markup} = require('telegraf');
-const { BOT } = require('./scripts/Bot')
+const {Telegraf, markup, Keyboard} = require('telegraf');
+const { BOT } = require('./botMethods')
 require('dotenv').config()
 
 // replace the value below with the Telegram token you receive from @BotFather
@@ -14,7 +14,7 @@ const provider = process.env.BASE_RPC;
 const action = new BOT(provider)
 
 // Matches "/echo [whatever]"
-bot.onText(/\/trade/, (msg, match) => {
+bot.onText(/\/start/, (msg, match) => {
   // 'msg' is the received Message from Telegram
   // 'match' is the result of executing the regexp above on the text content
   // of the message
@@ -22,27 +22,23 @@ bot.onText(/\/trade/, (msg, match) => {
   const chatId = msg.chat.id;
    let resp = {
     reply_markup: {
-      inline_keyboard: [
-        [
-          {
-            text: 'BUY',
-             // we shall check for this value when we listen
-             // for "callback_query"
-            callback_data: 'edit'
-          },{
-            text: 'SELL',
-            callback_data: 'moreedit'
-          }
-
+      inline_keyboard: 
+        [  
+          [
+            { text: '-------- SETTINGS --------', callback_data: 'edit'},
+          ] ,
+          [{ text: 'INFO ', callback_data: 'edit'},
+            {text: 'SLIPPAGE', callback_data: 'edit'}
+          ]
         ]
-      ]
-    }
-  };
-  
-  // send back the matched "whatever" to the chat
-  bot.sendMessage(chatId,'what you want to do?' ,resp);
-});
+      
+  }
+  }
 
+  let reply= "welcome to defiNinjaBot 🥷🏽 \nNOTE📝: currenlty only buy and sell on 🦄UNISWAPV2 POOLS\nLOTE SIZE🎒: set regular lot size for your trades $eth 0.1\nSLIPPAGE📊: set slippage tolerance for 0.05 for %5 (recomended)\n"
+  // send back the matched "whatever" to the chat
+  bot.sendMessage(chatId, reply ,resp);
+});
 // Handle callback queries
 bot.on('callback_query', function onCallbackQuery(callbackQuery) {
   const action = callbackQuery.data;
@@ -69,9 +65,8 @@ bot.on('message', async (msg) => {
   let userMsg = msg.text
   if (!userMsg.startsWith('/')){
 
-    let response = await handeler(userMsg)
 
-    //let response = await handeler(userMsg)
+    let response = await handeler(userMsg)
     // send a message to the chat acknowledging receipt of their message
     bot.sendMessage(chatId, response);
   }
@@ -91,3 +86,4 @@ async function handeler(userMsg){
     return 'please read the intructions on bot commands'
   }
 }
+
