@@ -16,6 +16,7 @@ class BOT extends OP{
         let r = await this.getEthBalance()
         return ethers.formatUnits(r)
     }
+
 }
 
 module.exports = { BOT }

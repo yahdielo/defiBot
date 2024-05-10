@@ -27,15 +27,23 @@ bot.onText(/\/start/, (msg, match) => {
           [
             { text: '-------- SETTINGS --------', callback_data: 'edit'},
           ] ,
-          [{ text: 'INFO ', callback_data: 'edit'},
+          [
+            { text: 'LOTE SIZE ', callback_data: 'edit'},
             {text: 'SLIPPAGE', callback_data: 'edit'}
-          ]
+          ],
+          [
+            { text: '-------- NOTE📝 --------', callback_data: 'edit'},
+          ],
+          [
+            { text: '🔴Min Lote Size: 0.003', callback_data: 'edit'},
+            {text: '🟢Max Lote size: unlimited', callback_data: 'edit'}
+          ],
         ]
       
   }
   }
 
-  let reply= "welcome to defiNinjaBot 🥷🏽 \nNOTE📝: currenlty only buy and sell on 🦄UNISWAPV2 POOLS\nLOTE SIZE🎒: set regular lot size for your trades $eth 0.1\nSLIPPAGE📊: set slippage tolerance for 0.05 for %5 (recomended)\n"
+  let reply= "welcome to defiNinjaBot 🥷🏽 \nNOTE📝:\ncurrenlty only buy and sell on 🦄UNISWAPV2 POOLS\nLOTE SIZE🎒:\nset regular lot size for your trades\nExmaple: 0.01 denomited in ETH\nSLIPPAGE📊:\nset slippage tolerance for trades\nExample: 0.05 for %5 (recommended one)\n"
   // send back the matched "whatever" to the chat
   bot.sendMessage(chatId, reply ,resp);
 });
@@ -79,7 +87,7 @@ async function handeler(userMsg){
 
   if (userMsg == 'ethbalance'){
     let balance = await action.ethBalance()
-    return `your ETH balance is ${balance}`
+    return `your ETH balance is ${Number(balance).toFixed(6)}`
   }
 
   else {
